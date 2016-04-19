@@ -1,0 +1,21 @@
+<h1><%= @post.title %>:</h1>
+
+<%= @post.body %> <br> <br>
+
+<%= link_to "Edit", edit_post_path %>
+<%= link_to "Delete", post_path, method: :delete, data: {confirm: "U sure about this holmes?"} %>
+
+<hr>
+<%= @comment.errors.full_messages.join(", ") %>
+<%= form_for [@post, @comment] do |f| %>
+  <%= f.text_area :body %>
+  <%= f.submit %>
+<% end %>
+
+<h2>Comments:</h2>
+<% @poop = 0 %>
+<% @post.comments.each do |com| %>
+  Comment <%= @poop += 1 %>: <%= com.body %>
+  <%= button_to "Delete comment", [@post, com], method: :delete, data: {confirm: "U sure about this holmes?"} %>
+  <hr>
+<% end %>
